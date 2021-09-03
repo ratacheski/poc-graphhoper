@@ -3,16 +3,20 @@ package com.example.pocgraphhoper.configuration;
 import com.graphhopper.GraphHopper;
 import com.graphhopper.config.CHProfile;
 import com.graphhopper.config.Profile;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GraphHopperConfigurer {
 
+    @Value("${graphhopper.osm-filename}")
+    private String OSM_FILENAME;
+
     @Bean
     public GraphHopper graphHopper() {
         GraphHopper hopper = new GraphHopper();
-        hopper.setOSMFile("core/files/nordeste-latest.osm.pbf");
+        hopper.setOSMFile("core/files/"+OSM_FILENAME);
         // specify where to store graphhopper files
         hopper.setGraphHopperLocation("target/routing-graph-cache");
 
